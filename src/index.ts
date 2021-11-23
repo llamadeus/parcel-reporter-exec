@@ -7,15 +7,15 @@ import { isStringArray } from './utils';
 let spawnedProcess: ChildProcess | null = null;
 
 async function killSpawnedProcess() {
-  return new Promise<void>((resolve) => {
-    if (spawnedProcess) {
-      spawnedProcess.on('exit', () => {
+  if (spawnedProcess) {
+    return new Promise<void>((resolve) => {
+      spawnedProcess?.on('exit', () => {
         spawnedProcess = null;
         resolve();
       });
-      spawnedProcess.kill();
-    }
-  });
+      spawnedProcess?.kill();
+    });
+  }
 }
 
 export default new Reporter({
