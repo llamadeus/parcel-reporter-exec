@@ -6,17 +6,22 @@ import { isStringArray } from './utils';
 
 let spawnedProcess: ChildProcess | null = null;
 
-function killSpawnedProcess() {
-  if (spawnedProcess) {
-    spawnedProcess.kill();
-    spawnedProcess = null;
-  }
+async function killSpawnedProcess() {
+  return new Promise<void>((resolve) => {
+    if (spawnedProcess) {
+      spawnedProcess.on('exit', () => {
+        spawnedProcess = null;
+        resolve();
+      });
+      spawnedProcess.kill();
+    }
+  });
 }
 
 export default new Reporter({
-  report({ event, options }) {
+  async report({ event, options }) {
     if (event.type === 'buildSuccess') {
-      killSpawnedProcess();
+      await killSpawnedProcess();
 
       if (typeof options.env.PARCEL_EXEC != 'undefined') {
         const [command, ...args] = parse(options.env.PARCEL_EXEC);
