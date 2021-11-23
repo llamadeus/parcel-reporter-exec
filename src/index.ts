@@ -6,13 +6,17 @@ import { isStringArray } from './utils';
 
 let spawnedProcess: ChildProcess | null = null;
 
+function killSpawnedProcess() {
+  if (spawnedProcess) {
+    spawnedProcess.kill();
+    spawnedProcess = null;
+  }
+}
+
 export default new Reporter({
   report({ event, options }) {
     if (event.type === 'buildSuccess') {
-      if (spawnedProcess) {
-        spawnedProcess.kill();
-        spawnedProcess = null;
-      }
+      killSpawnedProcess();
 
       if (typeof options.env.PARCEL_EXEC != 'undefined') {
         const [command, ...args] = parse(options.env.PARCEL_EXEC);
@@ -36,6 +40,7 @@ export default new Reporter({
   },
 });
 
-process.on('exit', () => {
-  spawnedProcess?.kill();
-});
+process.on('uncaughtException', killSpawnedProcess);
+process.on('SIGINT', killSpawnedProcess);
+process.on('SIGTERM', killSpawnedProcess);
+process.on('beforeExit', killSpawnedProcess);
