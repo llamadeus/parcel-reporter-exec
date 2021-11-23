@@ -22,9 +22,6 @@
     "@types/shell-quote": "^1.7.1",
     "parcel": "^2.0.1"
   },
-  "peerDependencies": {
-    "graphql-tag": "^2.12.6"
-  },
   "files": [
     "dist"
   ],
