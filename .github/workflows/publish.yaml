@@ -17,14 +17,16 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: install dependencies
         run: yarn install
+      - name: build package
+        run: yarn build
       - name: publish
         run: |
           npx can-npm-publish --verbose && npm publish || echo "Does not publish"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: package-version
+      - name: get package version
         run: node -p -e '`PACKAGE_VERSION=${require("./package.json").version}`' >> $GITHUB_ENV
-      - name: package-version-to-git-tag
+      - name: create tag
         uses: pkgdeps/git-tag-action@v2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
