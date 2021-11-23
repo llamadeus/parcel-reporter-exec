@@ -1,0 +1,38 @@
+{
+  "name": "parcel-reporter-exec",
+  "version": "0.0.2",
+  "description": "Execute a command after a successful Parcel build.",
+  "author": "Amadeus Beckmann <amadeus@beckmann.io>",
+  "license": "MIT",
+  "source": "src/index.ts",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "parcel build"
+  },
+  "engines": {
+    "node": "^16.0.0",
+    "parcel": "^2.0.0"
+  },
+  "dependencies": {
+    "@parcel/plugin": "^2.0.1",
+    "shell-quote": "^1.7.3"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.10",
+    "@types/shell-quote": "^1.7.1",
+    "parcel": "^2.0.1"
+  },
+  "peerDependencies": {
+    "graphql-tag": "^2.12.6"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "parcel",
+    "reporter",
+    "build",
+    "spawn",
+    "exec"
+  ]
+}
