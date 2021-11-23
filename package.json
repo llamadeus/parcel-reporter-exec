@@ -1,6 +1,6 @@
 {
   "name": "parcel-reporter-exec",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Execute a command after a successful Parcel build.",
   "author": "Amadeus Beckmann <amadeus@beckmann.io>",
   "license": "MIT",
